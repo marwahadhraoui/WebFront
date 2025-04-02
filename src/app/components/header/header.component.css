@@ -5,7 +5,7 @@
     width: 100%;
     z-index: 1000; /* S'assurer que le menu est au-dessus des autres éléments */
     background-color: #343a40; /* Couleur de fond du menu */
-    padding: 10px 0;
+    /* padding: 10px 0; */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Effet d'ombre pour un look moderne */
   }
  

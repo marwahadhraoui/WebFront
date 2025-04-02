@@ -1,0 +1,17 @@
+<div class="context-menu" [style.top]="position.top" [style.left]="position.left" (click)="$event.stopPropagation()">
+  <button class="context-menu-item" (click)="onEdit($event)">Modifier</button>
+  <button class="context-menu-item" (click)="onDelete($event)" >Supprimer</button>
+</div>
+
+<!-- Popup de confirmation -->
+@if(showDeleteConfirmation){
+<div class="confirmation-popup">
+  <div class="popup-content">
+    <p>Voulez-vous vraiment supprimer cet événement ?</p>
+    <div class="popup-actions">
+      <button (click)="confirmDelete()">Oui</button>
+      <button (click)="cancelDelete()">Non</button>
+    </div>
+  </div>
+</div>
+}

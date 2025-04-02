@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SlotItemComponent } from './slot-item.component';
+import { EventModalComponent } from './event-modal.component';
 
-describe('SlotItemComponent', () => {
-  let component: SlotItemComponent;
-  let fixture: ComponentFixture<SlotItemComponent>;
+describe('EventModalComponent', () => {
+  let component: EventModalComponent;
+  let fixture: ComponentFixture<EventModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SlotItemComponent]
+      imports: [EventModalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SlotItemComponent);
+    fixture = TestBed.createComponent(EventModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

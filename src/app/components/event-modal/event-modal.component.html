@@ -1,0 +1,58 @@
+<div class="modal" [class.show]="isVisible">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">          {{ isEditMode ? 'Modifier un créneau' : 'Ajouter un créneau' }}</h5>
+        <button type="button" class="close" (click)="onClose()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-md-6">
+            <label for="titre" class="form-label">Type Impression</label>
+            <input [(ngModel)]="typeImpression" type="text" class="form-control" id="typeImpression" name="typeImpression" placeholder="examen,ds,cours,..." required>
+          </div>
+          <div class="col-md-6">
+            <label for="specialite" class="form-label">Specialité</label>
+            <input [(ngModel)]="specialite" type="text" class="form-control" id="specialite" name="specialite" required>
+          </div><div class="col-md-6">
+            <label for="niveau" class="form-label">Niveau</label>
+            <input [(ngModel)]="niveau" type="text" class="form-control" id="niveau" name="niveau" required>
+          </div>
+          <div class="col-md-6">
+            <label for="matiere" class="form-label">Matiere</label>
+            <input [(ngModel)]="matiere" type="text" class="form-control" id="matiere" name="matiere" required>
+          </div> 
+          <div class="col-12">
+            <label for="date" class="form-label">Date</label>
+            <input [(ngModel)]="date" type="date" class="form-control" id="date" name="date" required>
+          </div>
+          <div class="col-md-6">
+            <label for="heureDebut" class="form-label">Heure debut</label>
+            <input [(ngModel)]="heureDebut" type="time" class="form-control" id="heureDebut" name="heureDebut" required>
+          </div>
+          <div class="col-md-6">
+            <label for="heureFin" class="form-label">Heure fin</label>
+            <input [(ngModel)]="heureFin" type="time" class="form-control" id="heureFin" name="heureFin" required>
+          </div>
+          <div class="col-md-6">
+            <label for="nbrImpression" class="form-label">Nombre d'impression</label>
+            <input [(ngModel)]="nbrImpression" type="number" class="form-control" id="nbrImpression" name="nbrImpression" min="1" required>
+          </div>
+          <div class="col-md-6">
+            <label for="statue" class="form-label">Statut</label>
+            <select class="form-select" id="statue" [(ngModel)]="selectedStatus" name="statue" required>
+              <option value="not_yet" class="status-not-yet">Reservé</option>
+              <option value="canceled" class="status-canceled"> Annulé</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onSave()"> {{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }}</button>
+        <button type="button" class="btn btn-secondary" (click)="onClose()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
