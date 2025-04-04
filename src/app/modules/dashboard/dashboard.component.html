@@ -1,1 +1,140 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <!-- Header -->
+  <header class="dashboard-header">
+    <h1 class="dashboard-title">
+      <i class="fas fa-tachometer-alt me-2"></i>Tableau de Bord - Gestion des Réservations
+    </h1>
+    <p class="dashboard-subtitle">Suivi en temps réel des demandes d'impression</p>
+  </header>
+
+  <!-- Statistiques Cards -->
+  <div class="stats-container">
+    <div class="stats-card bg-primary-gradient">
+      <div class="stats-icon">
+        <i class="fas fa-calendar-check"></i>
+      </div>
+      <div class="stats-content">
+        <h3>{{ totalOccupes }}</h3>
+        <p>Créneaux occupés</p>
+      </div>
+    </div>
+
+    <div class="stats-card bg-success-gradient">
+      <div class="stats-icon">
+        <i class="fas fa-calendar-plus"></i>
+      </div>
+      <div class="stats-content">
+        <h3>{{ totalDisponibles }}</h3>
+        <p>Créneaux disponibles</p>
+      </div>
+    </div>
+
+    <div class="stats-card bg-warning-gradient">
+      <div class="stats-icon">
+        <i class="fas fa-clock"></i>
+      </div>
+      <div class="stats-content">
+        <h3>{{ totalEnAttente }}</h3>
+        <p>En attente</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters-container">
+    <div class="search-filter">
+      <i class="fas fa-search"></i>
+      <input type="text" class="form-control search-input" placeholder="Rechercher par matière..." [(ngModel)]="filterMatiere">
+    </div>
+    
+    <div class="status-filter">
+      <select class="form-select" [(ngModel)]="filterStatut">
+        <option value="">Tous les statuts</option>
+        <option value="TERMINE">En attente</option>
+        <option value="Validée">Validée</option>
+        <option value="Annulée">Annulée</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tableau des réservations -->
+  <div class="reservations-container">
+    <div class="table-header">
+      <h2><i class="fas fa-list-alt me-2"></i>Liste des Réservations</h2>
+      <span class="badge bg-primary">{{ filteredReservations.length }} résultats</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="reservations-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Niveau</th>
+            <th>Spécialité</th>
+            <th>Matière</th>
+            <th>Pages</th>
+            <th>Date</th>
+            <th>Créneau</th>
+            <th>Statut</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let creneau of filteredReservations">
+            <td>
+             
+              <span class="badge type-badge" [ngClass]="{
+                'bg-info': creneau.reservation?.typeImpression === 'examen',
+                'bg-purple': creneau.reservation?.typeImpression === 'ds',
+                'bg-indigo': creneau.reservation?.typeImpression === 'TP'
+              }">
+                {{ creneau.reservation?.typeImpression }}
+              </span>
+            </td>
+            <td>{{ creneau.reservation?.niveau }}</td>
+            <td>{{ creneau.reservation?.specialite }}</td>
+            <td class="matiere-cell">{{ creneau.reservation?.matiere }}</td>
+            <td>
+              <span class="pages-badge">{{ creneau.reservation?.nbrPage }}</span>
+            </td>
+            <td>{{ creneau?.date | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <span class="creneau-badge">
+                {{ creneau?.heureDebut }} - {{ creneau?.heureFin }}
+              </span>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="{
+                'status-pending': creneau?.statut === 'TERMINE',
+                'status-approved': creneau?.statut === 'Validée',
+                'status-cancelled': creneau?.statut === 'Annulée'
+              }">
+                <i class="fas fa-circle me-1"></i>
+                {{ creneau?.statut === 'TERMINE' ? 'En attente' : creneau?.statut }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <button class="btn btn-sm btn-success me-1" 
+                      (click)="confirmValidation(creneau)" 
+                      *ngIf="creneau?.statut === 'RESERVE'"
+                      matTooltip="Valider la réservation">
+                <i class="fas fa-check"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" 
+                      (click)="confirmAnnulation(creneau)" 
+                      *ngIf="creneau?.statut === 'RESERVE'"
+                      matTooltip="Annuler la réservation">
+                <i class="fas fa-times"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="filteredReservations.length === 0">
+            <td colspan="9" class="no-results">
+              <i class="fas fa-info-circle me-2"></i>Aucune réservation trouvée
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

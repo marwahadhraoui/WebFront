@@ -8,9 +8,12 @@ import { Reservation } from '../models/reservation.model';
 })
 export class ReservationService {
   private apiUrl = 'http://localhost:8080/gestionImpression/reservations';
-
+ 
   constructor(private http: HttpClient) { }
 
+  getAllReservations(): Observable<Reservation[]> {
+      return this.http.get<Reservation[]>(this.apiUrl);
+    }
   createReservation(reservation: Reservation): Observable<Reservation> {
     return this.http.post<Reservation>(this.apiUrl, reservation);
   }

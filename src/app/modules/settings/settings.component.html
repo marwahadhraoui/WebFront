@@ -1,1 +1,38 @@
-<p>settings works!</p>
+<div class="container mt-4">
+    <h2>Paramètres de l'application ⚙️</h2>
+  
+    <!-- Sélection du thème -->
+    <div class="mb-3">
+      <label for="theme" class="form-label">Thème :</label>
+      <select id="theme" class="form-select" [(ngModel)]="theme">
+        <option value="light">Clair</option>
+        <option value="dark">Sombre</option>
+      </select>
+    </div>
+  
+    <!-- Sélection de la langue -->
+    <div class="mb-3">
+      <label for="langue" class="form-label">Langue :</label>
+      <select id="langue" class="form-select" [(ngModel)]="langue">
+        <option value="fr">Français</option>
+        <option value="en">Anglais</option>
+         
+      </select>
+    </div>
+  
+    <!-- Définition des horaires -->
+    <div class="mb-3">
+      <label for="horaires" class="form-label">Horaires d'ouverture :</label>
+      <input type="text" id="horaires" class="form-control" [(ngModel)]="horairesOuverture">
+    </div>
+  
+    <!-- Limite de réservations -->
+    <div class="mb-3">
+      <label for="limite" class="form-label">Limite de réservations par jour :</label>
+      <input type="number" id="limite" class="form-control" [(ngModel)]="limiteReservations">
+    </div>
+  
+    <!-- Bouton de sauvegarde -->
+    <button class="btn btn-primary" (click)="sauvegarderParametres()">💾 Sauvegarder</button>
+  </div>
+  

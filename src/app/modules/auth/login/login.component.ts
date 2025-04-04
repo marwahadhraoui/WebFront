@@ -15,8 +15,8 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent {
   loginObj = {
-    email: '',
-    password: ''
+    email: 'modou@gmail.com',
+    password: 'modou'
   };
   errorMessage = '';
 

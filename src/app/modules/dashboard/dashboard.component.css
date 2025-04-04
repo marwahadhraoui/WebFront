@@ -1,0 +1,267 @@
+.card {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .badge {
+    font-size: 14px;
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+
+  /* Style général */
+.dashboard-container {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.dashboard-title {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+/* Cartes de statistiques */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stats-card {
+  border-radius: 10px;
+  padding: 1.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+}
+
+.stats-icon {
+  font-size: 2rem;
+  margin-right: 1.5rem;
+}
+
+.stats-content h3 {
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+}
+
+.stats-content p {
+  margin-bottom: 0;
+  opacity: 0.9;
+}
+
+.bg-primary-gradient {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.bg-success-gradient {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.bg-warning-gradient {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+/* Filtres */
+.filters-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.search-filter {
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+}
+
+.search-filter i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7f8c8d;
+}
+
+.search-input {
+  padding-left: 40px;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+}
+
+.status-filter {
+  min-width: 200px;
+}
+
+.form-select {
+  border-radius: 50px;
+  border: 1px solid #ddd;
+}
+
+/* Tableau */
+.reservations-container {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.reservations-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reservations-table th {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  font-weight: 600;
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.reservations-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.reservations-table tr:hover td {
+  background-color: #f8f9fa;
+}
+
+/* Badges */
+.badge {
+  font-weight: 500;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+}
+
+.type-badge {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+.bg-purple {
+  background-color: #9b59b6;
+}
+
+.bg-indigo {
+  background-color: #3f51b5;
+}
+
+.pages-badge {
+  display: inline-block;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 0.25rem 0.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.creneau-badge {
+  background-color: #f5f5f5;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-pending {
+  background-color: rgba(241, 196, 15, 0.1);
+  color: #f39c12;
+}
+
+.status-approved {
+  background-color: rgba(46, 204, 113, 0.1);
+  color: #27ae60;
+}
+
+.status-cancelled {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #c0392b;
+}
+
+/* Cellules spéciales */
+.matiere-cell {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.actions-cell {
+  white-space: nowrap;
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: #7f8c8d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .filters-container {
+    flex-direction: column;
+  }
+  
+  .search-filter, .status-filter {
+    width: 100%;
+  }
+}
+  /* Toast notifications */
+.toast-success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.toast-error {
+  background-color: #F44336;
+  color: white;
+}
+
+/* Ensure the toast appears above other elements */
+.mat-snack-bar-container {
+  margin-top: 70px;
+}
