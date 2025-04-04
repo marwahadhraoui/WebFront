@@ -1,1 +1,30 @@
-<p>login works!</p>
+<main class="main-login">
+    <div class="left-login">
+        <h1>Connectez-vous<br>Et accédez à vos réservations</h1>
+        <img src="https://i.postimg.cc/NFh679k6/educationlogo.avif" class="left-login-img" alt="astronaut image">
+    </div>
+
+    <div class="right-login">
+        <div class="card-login">
+            <h1>Login</h1>
+
+            <!-- Affichage des erreurs -->
+            <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+            <div class="textfield">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="Votre email(testez avec marwa@gmail.com)" [(ngModel)]="loginObj.email">
+            </div>
+
+            <div class="textfield">
+                <label for="mdp">Mot de passe</label>
+                <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe(testez avec marwa)"
+                    [(ngModel)]="loginObj.password">
+            </div>
+
+            <button class="btn-login" (click)="login()">Login
+
+            </button>
+        </div>
+    </div>
+</main>

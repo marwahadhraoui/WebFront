@@ -1,1 +1,29 @@
-<p>schedule-calendar works!</p>
+@if (isBrowser) {
+    <div class="calendar-container">
+      <full-calendar [options]="calendarOptions"></full-calendar>
+    </div>
+  }
+
+  @if (showModal) {
+    <app-event-modal 
+      [isVisible]="true"
+      [date]="selectedDate"
+      [heureDebut]="selectedHeure"
+      [heureFin]="selectedEndHeure"
+      [creneau]="selectedCreneau"
+      [isEditMode]="isEditMode"
+      (eventSaved)="onEventSaved($event)"
+      (closeModal)="onModalClose()">
+    </app-event-modal>
+  }
+    
+    @if (showContextMenu) {
+      <app-event-context-menu 
+      [position]="contextMenuPosition"
+      (edit)="onEditEvent()"
+      (delete)="onDeleteEvent()"
+      >
+    </app-event-context-menu>
+    } 
+
+  
