@@ -10,16 +10,26 @@
       <div class="modal-body">
         <form class="row g-3">
           <div class="col-md-6">
-            <label for="titre" class="form-label">Type Impression</label>
-            <input [(ngModel)]="typeImpression" type="text" class="form-control" id="typeImpression" name="typeImpression" placeholder="examen,ds,cours,..." required>
+            <label for="Type Impression" class="form-label">Type Impression</label>
+            <select [(ngModel)]="type" class="form-control" id="Type Impression" name="typeImpression" required>
+              <option *ngFor="let spec of types" [value]="spec">{{spec}}</option>
+            </select>
           </div>
+          
           <div class="col-md-6">
-            <label for="specialite" class="form-label">Specialité</label>
-            <input [(ngModel)]="specialite" type="text" class="form-control" id="specialite" name="specialite" required>
-          </div><div class="col-md-6">
-            <label for="niveau" class="form-label">Niveau</label>
-            <input [(ngModel)]="niveau" type="text" class="form-control" id="niveau" name="niveau" required>
+            <label for="specialite" class="form-label">Spécialité</label>
+            <select [(ngModel)]="specialite" class="form-control" id="specialite" name="specialite" required>
+              <option *ngFor="let spec of specialites" [value]="spec">{{spec}}</option>
+            </select>
           </div>
+          
+          <div class="col-md-6">
+            <label for="niveau" class="form-label">Niveau</label>
+            <select [(ngModel)]="niveau" class="form-control" id="niveau" name="niveau" required>
+              <option *ngFor="let niv of niveaux" [value]="niv">{{niv}}</option>
+            </select>
+          </div>
+          
           <div class="col-md-6">
             <label for="matiere" class="form-label">Matiere</label>
             <input [(ngModel)]="matiere" type="text" class="form-control" id="matiere" name="matiere" required>

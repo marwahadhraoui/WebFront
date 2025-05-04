@@ -20,5 +20,8 @@ export class ReservationService {
 
   updateReservation(id: number, reservation: Reservation): Observable<Reservation> {
     return this.http.put<Reservation>(`${this.apiUrl}/${id}`, reservation);
+  } 
+  getReservationsByEnseignant(enseignantId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/enseignant/${enseignantId}`);
   }
 }

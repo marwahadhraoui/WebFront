@@ -22,11 +22,34 @@ export class EventModalComponent {
   @Output() closeModal = new EventEmitter<void>();
 
   typeImpression: string = '';
-  specialite: string = '';
-  niveau: string = '';
+  specialite: string = 'Informatique'; // Valeur par défaut
+  niveau: string = '1ere Annee'; // Valeur par défaut
   matiere: string = '';
+  type: string = 'Énoncé simple';
   nbrImpression: number = 1;
   selectedStatus: string = 'not_yet';
+
+  // Liste des spécialités disponibles
+  specialites: string[] = [
+    'Informatique',
+    'Infotronique',
+    'Mecanique',
+    'Industrielle',
+    'Autre'
+  ];
+
+  // Liste des niveaux disponibles
+  niveaux: string[] = [
+    '1ere Annee',
+    '2eme Annee',
+    '3eme Annee'
+  ];
+
+  types: string[] = [
+    'Énoncé simple',
+    'SmartExamen'
+    
+  ];
 
   ngOnChanges() {
     if (this.isEditMode && this.creneau) {
@@ -45,11 +68,12 @@ export class EventModalComponent {
     }
   }
 
-  constructor(private creneauxService: CreneauxService,private reservationService: ReservationService) {}
+  constructor(private creneauxService: CreneauxService, private reservationService: ReservationService) {}
 
   onClose() {
     this.closeModal.emit();
   }
+
   onSave() {
     const creneau: Creneaux = {
       date: this.date,
@@ -57,10 +81,9 @@ export class EventModalComponent {
       heureFin: this.heureFin,
       statut: this.selectedStatus === 'not_yet' ? 'RESERVE' : 'ANNULE',
       reservation: {
-        // Include ID only in edit mode
-      ...(this.isEditMode && this.creneau?.reservation?.id && { 
-        id: this.creneau.reservation.id 
-      }),
+        ...(this.isEditMode && this.creneau?.reservation?.id && { 
+          id: this.creneau.reservation.id 
+        }),
         typeImpression: this.typeImpression,
         niveau: this.niveau,
         specialite: this.specialite,
@@ -72,3 +95,5 @@ export class EventModalComponent {
     this.eventSaved.emit(creneau);
   }
 }
+
+ 

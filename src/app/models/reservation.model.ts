@@ -1,5 +1,5 @@
 import { Creneaux } from "./creneaux.model";
-
+import { Examen } from "./examen.model";
 export interface Reservation {
     id?: number;
     typeImpression: string;
@@ -8,4 +8,5 @@ export interface Reservation {
     matiere: string;
     nbrPage: number;
     creneaux?: Creneaux;
+    examen?: Examen;
   }

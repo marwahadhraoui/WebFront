@@ -20,7 +20,10 @@ import { FormsModule } from '@angular/forms';
 import { EventContextMenuComponent } from '../../../components/event-context-menu/event-context-menu.component';
 import { CreneauxService } from '../../../services/creneaux.service';
 import { Creneaux } from '../../../models/creneaux.model';
+import { User } from '../../../models/user.model';
 import { ReservationService } from '../../../services/reservation.service';
+import { AuthService } from '../../../services/auth.service';
+
 @Component({
   selector: 'app-schedule-calendar',
   standalone: true,
@@ -30,6 +33,7 @@ import { ReservationService } from '../../../services/reservation.service';
     EventModalComponent,
     FormsModule,
     EventContextMenuComponent,
+    
   ],
   templateUrl: './schedule-calendar.component.html',
   styleUrls: ['./schedule-calendar.component.css'],
@@ -52,7 +56,7 @@ export class ScheduleCalendarComponent implements OnInit {
   selectedCreneau: Creneaux | null = null;
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private creneauxService: CreneauxService, private reservationService: ReservationService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private creneauxService: CreneauxService, private reservationService: ReservationService,private authService:AuthService) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
@@ -76,17 +80,23 @@ export class ScheduleCalendarComponent implements OnInit {
   private updateCalendarEvents(): void {
     const events: EventInput[] = this.creneaux.map(creneau => ({
       id: creneau.id?.toString(),
-      title: `${creneau.reservation?.typeImpression} - ${creneau.reservation?.niveau} `,
+      title: this.generateEventTitle(creneau), // Utilisation d'une méthode pour générer le titre
       start: `${creneau.date}T${creneau.heureDebut}`,
       end: `${creneau.date}T${creneau.heureFin}`,
       backgroundColor: this.getEventColor(creneau.statut),
       extendedProps: {
         statut: creneau.statut,
-        reservation: creneau.reservation
+        reservation: creneau.reservation,
+        secretaire: creneau.secretaire,
+        examen: creneau.reservation?.examen,
+      examenInfo: creneau.reservation?.examen ? 
+        `Examen: ${creneau.reservation.examen.matiere} (${creneau.reservation.examen.dateExamen})` : 
+        'Aucun examen associé',
+        // Ajout des informations supplémentaires
+        details: this.generateEventDetails(creneau)
       }
-
     }));
-
+  
     this.calendarOptions.events = events;
   }
 
@@ -101,6 +111,9 @@ export class ScheduleCalendarComponent implements OnInit {
   private initializeCalendar(): void {
     this.calendarOptions = {
       initialView: 'timeGridWeek',
+      eventDidMount: (info) => {
+        info.el.setAttribute('title', info.event.extendedProps['details']);
+      },
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
@@ -172,7 +185,23 @@ export class ScheduleCalendarComponent implements OnInit {
     }
   }
 
-  onEventSaved(creneauData: Creneaux) {
+  onEventSaved(creneauData: Creneaux) { 
+      // Récupérer l'utilisateur connecté
+  const currentUser = this.authService.getUser();
+  
+  if (!currentUser) {
+    console.error('Aucun utilisateur connecté');
+    return;
+  }
+
+  // Associer l'utilisateur au créneau
+  creneauData.secretaire = {
+    id: currentUser.id,
+    nom: currentUser.nom,
+    prenom: currentUser.prenom,
+    email: currentUser.email,
+    role: currentUser.role
+  } as User;
     if (this.isEditMode && this.selectedEventId) {
       this.creneauxService.updateCreneau(+this.selectedEventId, creneauData)
         .subscribe({
@@ -186,7 +215,8 @@ export class ScheduleCalendarComponent implements OnInit {
             this.showModal = false;
           }
         });
-    } else {
+    } else { 
+      creneauData.secretaire==this.authService.getUser();
       this.creneauxService.createCreneau(creneauData)
         .subscribe({
           next: (createdCreneau) => {
@@ -199,7 +229,8 @@ export class ScheduleCalendarComponent implements OnInit {
               backgroundColor: this.getEventColor(createdCreneau.statut),
               extendedProps: {
                 statut: createdCreneau.statut,
-                reservation: createdCreneau.reservation
+                reservation: createdCreneau.reservation,
+                secretaire: createdCreneau.secretaire
               }
             };
 
@@ -216,6 +247,7 @@ export class ScheduleCalendarComponent implements OnInit {
           }
         });
     }
+
   } onDeleteEvent() {
     if (this.selectedEventId) {
       this.creneauxService.deleteCreneau(+this.selectedEventId).subscribe({
@@ -236,5 +268,39 @@ export class ScheduleCalendarComponent implements OnInit {
         }
       });
     }
+  } 
+
+  // Nouvelle méthode pour générer le titre de l'événement
+private generateEventTitle(creneau: Creneaux): string {
+  let title = '';
+  
+  if (creneau.reservation) {
+    title += `${creneau.reservation.typeImpression || ''}`;
+    title += creneau.reservation.niveau ? ` - ${creneau.reservation.niveau}` : '';
+    title += creneau.reservation.matiere ? ` - ${creneau.reservation.matiere}` : '';
   }
+  
+  if (creneau.secretaire) {
+    title += ` (${creneau.secretaire.prenom} ${creneau.secretaire.nom})`;
+  }
+  
+  return title || 'Nouveau créneau';
+}
+
+// Nouvelle méthode pour générer les détails de l'événement
+private generateEventDetails(creneau: Creneaux): string {
+  let details = '';
+  
+  if (creneau.reservation) {
+    details += `Spécialité: ${creneau.reservation.specialite || 'Non spécifié'}\n`;
+    details += `Niveau: ${creneau.reservation.niveau || 'Non spécifié'}\n`;
+    details += `Matière: ${creneau.reservation.matiere || 'Non spécifié'}\n`;
+  }
+  
+  if (creneau.secretaire) {
+    details += `Géré par: ${creneau.secretaire.prenom} ${creneau.secretaire.nom}`;
+  }
+  
+  return details;
+}
 }

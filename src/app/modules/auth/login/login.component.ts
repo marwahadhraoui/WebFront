@@ -15,14 +15,16 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent {
   loginObj = {
-    email: 'modou@gmail.com',
-    password: 'modou'
+    email: '',
+    password: ''
   };
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
   login() {
+    this.router.navigateByUrl('/home');
+     
     if (!this.loginObj.email || !this.loginObj.password) {
       this.errorMessage = 'Veuillez remplir tous les champs.';
       alert(this.errorMessage);
@@ -38,6 +40,9 @@ export class LoginComponent {
           case 'SECRETAIRE':
             this.router.navigateByUrl('/home');
             break;
+            case 'ENSEIGNANT':
+              this.router.navigateByUrl('/home');
+              break;
           case 'ADMIN':
             this.router.navigateByUrl('/admin-dashboard');
             break;
@@ -51,5 +56,5 @@ export class LoginComponent {
         alert(this.errorMessage);
       }
     );
-  }
+ }
 }
