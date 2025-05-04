@@ -8,6 +8,7 @@ import { Creneaux } from '../models/creneaux.model';
 })
 export class CreneauxService {
   private apiUrl = 'http://localhost:8080/gestionImpression/creneaux';
+  private apiUrl1 = 'http://localhost:8080/gestionImpression/creneaux/secretaire';
 
   constructor(private http: HttpClient) { }
 
@@ -16,6 +17,10 @@ export class CreneauxService {
   }
   getCreneau(id: number): Observable<Creneaux> {
     return this.http.get<Creneaux>(`${this.apiUrl}/${id}`);
+  } 
+
+  getCreneaubyEnseignant(id: number): Observable<Creneaux[]> {
+    return this.http.get<Creneaux[]>(`${this.apiUrl1}/${id}`);
   }
 
   createCreneau(creneau: Creneaux): Observable<Creneaux> {

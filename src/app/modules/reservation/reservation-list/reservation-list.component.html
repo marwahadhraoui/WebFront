@@ -1,3 +1,4 @@
+<div class="alertes-container">
 <div class="container mt-4">
     <h2 class="mb-4">Réservations de créneaux</h2>
   
@@ -22,6 +23,7 @@
           
           <th>Niveau</th>
           <th>Nombre Page</th>
+          <th>Statut</th>
         </tr>
       </thead>
       <tbody>
@@ -33,8 +35,20 @@
           <td>{{ reservation.reservation.matiere }}</td>
           <td>{{ reservation.reservation.niveau }}</td>
           <td>{{ reservation.reservation.nbrPage }}</td>
+          <td>{{ reservation.statut }}</td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>
+
+  <style>
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
   
+    .alertes-container {
+      margin-bottom: 300px; /* Ajustez cette valeur selon l'espace nécessaire */
+    }
+  </style>

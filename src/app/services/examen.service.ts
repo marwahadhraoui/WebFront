@@ -22,5 +22,13 @@ export class ExamenService {
           `${this.apiUrl1}/${reservationId}/associate-examen?examenId=${examenId}`, 
           {}
         );
+      } 
+
+      getAlertesExamens(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/alertes`);
+      }
+    
+      getExamens(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}`);
       }
 }

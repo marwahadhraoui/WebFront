@@ -1,1 +1,32 @@
-<p>notification-list works!</p>
+<div class="alertes-container">
+    <h2>Alertes Examens Sans Réservation</h2>
+  
+    <div *ngIf="loading">
+      Chargement des alertes...
+    </div>
+  
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <ul *ngIf="alertes.length > 0">
+      <li *ngFor="let alerte of alertes">
+        Examen de {{ alerte.matiere }} prévu le {{ alerte.dateExamen }} (Niveau: {{ alerte.niveau }}, Spécialité: {{ alerte.specialite }}) - Aucune réservation effectuée.
+      </li>
+    </ul>
+  
+    <div *ngIf="!loading && alertes.length === 0 && !errorMessage">
+      Aucune alerte d'examen pour le moment.
+    </div>
+  </div>
+  
+  <style>
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+  
+    .alertes-container {
+      margin-bottom: 300px; /* Ajustez cette valeur selon l'espace nécessaire */
+    }
+  </style>

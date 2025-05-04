@@ -53,6 +53,7 @@
         <option value="TERMINE">En attente</option>
         <option value="Validée">Validée</option>
         <option value="Annulée">Annulée</option>
+        <option value="RESERVE">RESERVE</option>
       </select>
     </div>
   </div>
@@ -69,6 +70,7 @@
         <thead>
           <tr>
             <th>Type</th>
+            <th>Enseignant</th>
             <th>Niveau</th>
             <th>Spécialité</th>
             <th>Matière</th>
@@ -84,13 +86,14 @@
             <td>
              
               <span class="badge type-badge" [ngClass]="{
-                'bg-info': creneau.reservation?.typeImpression === 'examen',
-                'bg-purple': creneau.reservation?.typeImpression === 'ds',
+                'bg-info': creneau.reservation?.typeImpression === 'Énoncé simple',
+                'bg-purple': creneau.reservation?.typeImpression === 'SmartExamen',
                 'bg-indigo': creneau.reservation?.typeImpression === 'TP'
               }">
                 {{ creneau.reservation?.typeImpression }}
               </span>
             </td>
+            <td>{{ creneau.secretaire?.nom }}</td>
             <td>{{ creneau.reservation?.niveau }}</td>
             <td>{{ creneau.reservation?.specialite }}</td>
             <td class="matiere-cell">{{ creneau.reservation?.matiere }}</td>

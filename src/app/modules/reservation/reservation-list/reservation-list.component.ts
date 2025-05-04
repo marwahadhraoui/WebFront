@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationService } from '../../../services/reservation.service';
 import { CreneauxService } from '../../../services/creneaux.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'; 
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-reservation-list',
@@ -13,15 +14,23 @@ import { CommonModule } from '@angular/common';
 export class ReservationListComponent implements OnInit {
   reservations: any[] = [];
   loading: boolean = true;
-  enseignantId: number = 2; // À adapter dynamiquement selon le login
+  enseignantId: number = 3; // À adapter dynamiquement selon le login
   
-  constructor(private reservationService: CreneauxService ) {}
+  constructor(private reservationService: CreneauxService ,private authService: AuthService) {}
   
   ngOnInit(): void {
     this.getReservations();
   }
   
-  getReservations(): void {
+  getReservations(): void { 
+    const currentUser = this.authService.getUser();
+
+    if (!currentUser) {
+      console.error('Aucun utilisateur connecté');
+      return;
+    } 
+    
+   
     this.reservationService.getAllCreneaux()
       .subscribe({
         next: (data) => {

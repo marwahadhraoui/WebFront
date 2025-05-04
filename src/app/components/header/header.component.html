@@ -23,6 +23,11 @@
         </li>
         <li class="nav-item" *ngIf="authService.hasRole('SECRETAIRE')">
           <a class="nav-link" href="/dashboard">Dashboard</a>
+        
+        </li>
+        <li class="nav-item" *ngIf="authService.hasRole('SECRETAIRE')">
+          <a class="nav-link" href="/profile">Examens</a>
+        
         </li>
       </ul>
   
@@ -37,9 +42,8 @@
             </span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Nouvelle réservation confirmée</a></li>
-            <li><a class="dropdown-item" href="#">Créneau annulé</a></li>
-            <li><a class="dropdown-item" href="#">Rappel : impression demain</a></li>
+            <li><a class="dropdown-item" href="/notifications">Alerte</a></li>
+           
           </ul>
         </li>
   

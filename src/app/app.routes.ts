@@ -13,17 +13,19 @@ import { SettingsComponent } from './modules/settings/settings.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { SecretaryGuard } from './services/secretary.guard'; 
 import { UserGuard } from './services/user.guard';
+import { NotificationListComponent } from './modules/notifications/notification-list/notification-list.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent ,canActivate: [UserGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent ,canActivate: [UserGuard]},
   { path: 'reservations', component: ReservationListComponent ,canActivate: [UserGuard]},
   { path: 'calendar', component: ScheduleCalendarComponent ,canActivate: [UserGuard]},
   { path: 'dashboard', component: DashboardComponent ,canActivate: [SecretaryGuard] },
   { path: 'settings', component: SettingsComponent,canActivate: [UserGuard] },
+  { path: 'notifications', component: NotificationListComponent,canActivate: [UserGuard] },
   { path: '**', component: NotFoundComponent } // Page 404
 ];
 

@@ -1,1 +1,65 @@
-<p>profile works!</p>
+<div class="alertes-container">
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h4>Import du planning des examens</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="importForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label class="form-label">Fichier CSV/Excel</label>
+            <input type="file" class="form-control" 
+                   accept=".csv,.xlsx,.xls" 
+                   (change)="onFileChange($event)" required>
+            <div class="form-text">
+              Téléchargez le <a href="#" (click)="downloadTemplate()">modèle</a> pour respecter le format
+            </div>
+          </div>
+  
+          <button type="submit" class="btn btn-primary" [disabled]="!fileToUpload || isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+            {{ isLoading ? 'Import en cours...' : 'Importer' }}
+          </button>
+  
+          <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">
+            Annuler
+          </button>
+        </form>
+  
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          {{ errorMessage }}
+        </div>
+  
+        <div *ngIf="validationResult" class="mt-4">
+          <div *ngIf="validationResult.errors.length > 0" class="alert alert-warning">
+            <h5>Erreurs détectées ({{ validationResult.errors.length }})</h5>
+            <ul>
+              <li *ngFor="let error of validationResult.errors">
+                Ligne {{ error.line }}: {{ error.message }}
+                <pre>{{ error.data | json }}</pre>
+              </li>
+            </ul>
+          </div>
+  
+          <div *ngIf="validationResult.validExamens.length > 0" class="alert alert-success">
+            <h5>Examens valides ({{ validationResult.validExamens.length }})</h5>
+            <button class="btn btn-success" (click)="confirmImport(validationResult.validExamens)">
+              Confirmer l'import
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <style>
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+  
+    .alertes-container {
+      margin-bottom: 100px; /* Ajustez cette valeur selon l'espace nécessaire */
+    }
+  </style>

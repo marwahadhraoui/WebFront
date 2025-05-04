@@ -10,6 +10,8 @@ import { User } from '../models/user.model';
 export class AuthService {
   private apiUrl = 'http://localhost:8080/gestionImpression/users/login';
 
+  private apiUrl1 = 'http://localhost:8080/gestionImpression/users';
+
   constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<any> {
@@ -42,5 +44,10 @@ export class AuthService {
   getCurrentRole(): string | null {
     const user = this.getUser();
     return user ? user.role : null;
-  }
+  } 
+
+  
+  register(userData: User): Observable<any> {
+    return this.http.post<any>(this.apiUrl1, userData);  
+}
 }
